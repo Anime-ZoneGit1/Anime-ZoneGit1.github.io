@@ -14,7 +14,7 @@
     </div>
 
     <!-- Musik Otomatis -->
-    <audio id="backgroundMusic" autoplay loop controls>
+    <audio id="backgroundMusic" loop>
         <source src="https://files.catbox.moe/1zjhmd.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -61,11 +61,15 @@
         window.onload = function() {
             document.getElementById('loadingScreen').style.display = 'none'; // Menyembunyikan animasi loading
             document.getElementById('content').style.display = 'block'; // Menampilkan konten utama
-
-            // Pastikan musik diputar setelah konten selesai dimuat
-            const music = document.getElementById('backgroundMusic');
-            music.play();
         };
+
+        // Mendeteksi interaksi pertama pengguna untuk mulai memutar musik
+        document.addEventListener("click", function() {
+            const music = document.getElementById("backgroundMusic");
+            if (music.paused) {
+                music.play().catch(error => console.log("Autoplay tidak diizinkan:", error));
+            }
+        }, { once: true }); // Hanya berjalan sekali setelah interaksi pertama
     </script>
 </body>
 </html>
